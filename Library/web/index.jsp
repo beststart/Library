@@ -1,16 +1,14 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Xing
-  Date: 2019/5/5/0005
-  Time: 23:11
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page isELIgnored="false" %>
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>$Title$</title>
-  </head>
-  <body>
-  测试页面123fdsfsadasdrwer
-  </body>
+<head>
+    <title>图书管理系统</title>
+    <base href="${basePath}">
+    <link rel="stylesheet" href="static/plugins/bootstrap/css/bootstrap.css">
+    <link rel="icon" href="static/imgs/icon.jpg">
+</head>
+<body>
+系统首页
+</body>
 </html>

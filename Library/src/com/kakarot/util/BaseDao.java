@@ -98,6 +98,14 @@ public class BaseDao {
         return baseQuery(sql,null,tClass);
     }
 
+    public static <T> T baseQueryBean(String sql,List<Object> list,Class<T> tClass){
+        List<T> tList=baseQuery(sql,list,tClass);
+        if(tList!=null&&tList.size()>0){
+            return tList.get(0);
+        }
+        return null;
+    }
+
     private static void managerPstm(String sql,List<Object> list){
         try {
             getConn();
