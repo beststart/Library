@@ -6,47 +6,9 @@
     <title>图书管理系统登录</title>
     <base href="${basePath}">
     <link rel="stylesheet" href="static/plugins/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="static/plugins/bootstrap-validator/css/bootstrapValidator.css">
+    <link rel="stylesheet" href="static/css/login.css">
     <link rel="icon" href="static/imgs/icon.jpg">
-    <style>
-        #img {
-            width: 100%;
-            position: fixed;
-            right: 0;
-            bottom: 0;
-            min-width: 100%;
-            min-height: 100%;
-            height: auto;
-            z-index: -100;
-            background-size: cover;
-        }
-
-        .form {
-            background: rgba(255, 255, 255, 0.2);
-            width: 420px;
-            margin: 120px auto;
-        }
-
-        /*阴影*/
-        .glyphicon {
-            display: inline-block;
-            top: 28px;
-            left: 8px;
-            position: relative;
-            color: #ccc;
-        }
-
-        input[type="text"], input[type="password"] {
-            padding-left: 26px;
-        }
-
-        .checkbox {
-            padding-left: 21px;
-        }
-
-        h2 {
-            color: white;
-        }
-    </style>
 </head>
 <body>
 <img src="static/imgs/kakarot.jpg" alt="kakarot" id="img">
@@ -60,12 +22,12 @@
             <form id="form">
                 <div class="col-md-9">
                     <div class="form-group">
-                        <i class="glyphicon glyphicon-user"></i>
+                        <i class="glyphicon glyphicon-user icon"></i>
                         <input class="form-control required" type="text" placeholder="请输入登录名" id="loginName"
                                name="username" autofocus="autofocus" maxlength="20"/>
                     </div>
                     <div class="form-group">
-                        <i class="glyphicon glyphicon-lock"></i>
+                        <i class="glyphicon glyphicon-lock icon"></i>
                         <input class="form-control required" type="password" placeholder="请输入密码" id="password"
                                name="password" maxlength="8"/>
                     </div>
@@ -84,9 +46,50 @@
 </div>
 </body>
 <script src="static/plugins/jquery/jquery-3.4.0.js"></script>
+<script src="static/plugins/bootstrap/js/bootstrap.js"></script>
+<script src="static/plugins/bootstrap-validator/js/bootstrapValidator.js"></script>
+<script src="static/plugins/bootstrap-validator/js/language/zh_CN.js"></script>
 <script>
     $(function () {
-        function doLogin() {
+        /*bootstrap验证插件*/
+        $('#form').bootstrapValidator({
+            /*验证状态图标设置*/
+            feedbackIcons:{
+                valid:'glyphicon glyphicon-ok',             //验证成功状态
+                invalid:'glyphicon glyphicon-remove',       //验证失败状态
+                validating:'glyphicon glyphicon-refresh'    //正在验证状态
+            },
+            /*配置要验证的属性*/
+            fields:{
+                username:{
+                    validators:{
+                        notEmpty:{
+                            message:'用户名不能为空'
+                        }
+                    }
+                },
+                password:{
+                    validators:{
+                        notEmpty:{
+                            message:'密码不能为空'
+                        }
+                    }
+                }
+            }
+        });
+        $('#loginBtn').click(function () {
+            doLogin();
+        });
+        $('body').keydown(function (e) {
+            if(e.keyCode==13){
+                doLogin();
+            }
+        });
+    });
+    function doLogin() {
+        var bootstrapValidator = $("#form").data('bootstrapValidator');
+        bootstrapValidator.validate();
+        if(bootstrapValidator.isValid()){
             $.ajax({
                 url: 'login?type=doLogin',
                 data: $('#form').serialize(),
@@ -106,14 +109,6 @@
                 }
             });
         }
-        $('#loginBtn').click(function () {
-            doLogin();
-        });
-        $('body').keydown(function (e) {
-            if(e.keyCode==13){
-                doLogin();
-            }
-        });
-    });
+    }
 </script>
 </html>

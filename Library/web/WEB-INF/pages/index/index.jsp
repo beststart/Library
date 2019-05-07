@@ -1,16 +1,68 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Xing
-  Date: 2019/5/6/0006
-  Time: 23:16
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="static/imgs/icon.jpg">
+    <title>逆时光图书馆后台</title>
+    <link href="static/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/dashboard.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
-系统首页
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">逆时光图书馆</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">${lu.realname}</a></li>
+                <li><a href="#">退出</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="active"><a href="user?type=toList" target="view">用户管理</a></li>
+                <li><a href="power?type=toList" target="view">权限管理</a></li>
+                <li><a href="book?type=toList" target="view">图书管理</a></li>
+                <li><a href="author?type=toList" target="view">作者管理</a></li>
+                <li><a href="press?type=toList" target="view">出版社管理</a></li>
+                <li><a href="record?type=toList" target="view">借阅记录</a></li>
+            </ul>
+        </div>
+            <iframe src="user?type=toList" width="100%" id="main" name="view" frameborder="0"></iframe>
+    </div>
+</div>
+<script src="static/plugins/jquery/jquery-3.4.0.js"></script>
+<script src="static/plugins/bootstrap/js/bootstrap.js"></script>
+<script>
+    /*iframe高度自适应*/
+    function changeFrameHeight(){
+        var ifm= document.getElementById("main");
+        ifm.height=document.documentElement.clientHeight-56;
+    }
+    $(function () {
+       changeFrameHeight();
+       $('.nav-sidebar li').click(function () {
+           $(this).addClass('active').siblings().removeClass('active');
+       });
+    });
+    $(window).resize(function () {
+        changeFrameHeight();
+    });
+</script>
 </body>
 </html>

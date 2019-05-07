@@ -106,6 +106,23 @@ public class BaseDao {
         return null;
     }
 
+    public static <T> T baseQueryBean(String sql,Class<T> tClass){
+        return baseQueryBean(sql,null,tClass);
+    }
+
+    public static Integer getCount(String sql,List list){
+        managerPstm(sql,list);
+        try{
+            rs=pstm.executeQuery();
+            if(rs.next()){
+                return rs.getInt("count");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     private static void managerPstm(String sql,List<Object> list){
         try {
             getConn();
