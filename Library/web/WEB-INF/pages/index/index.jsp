@@ -24,8 +24,9 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">${lu.realname}</a></li>
-                <li><a href="#">退出</a></li>
+                <li><a href="user?type=toEdit&id=${lu.id}" data-toggle="modal" data-target="#userInfo">${lu.realname}</a></li>
+                <li><a href="user?type=toPwd&id=${lu.id}" data-toggle="modal" data-target="#userInfo">修改密码</a></li>
+                <li id="exit"><a href="javascript:;">退出</a></li>
             </ul>
         </div>
     </div>
@@ -46,6 +47,12 @@
             <iframe src="user?type=toList" width="100%" id="main" name="view" frameborder="0"></iframe>
     </div>
 </div>
+<div class="modal fade" tabindex="-1" role="dialog" id="userInfo" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
 <script src="static/plugins/jquery/jquery-3.4.0.js"></script>
 <script src="static/plugins/bootstrap/js/bootstrap.js"></script>
 <script>
@@ -59,6 +66,25 @@
        $('.nav-sidebar li').click(function () {
            $(this).addClass('active').siblings().removeClass('active');
        });
+       $('#exit').click(function () {
+           if(confirm('确定退出本系统吗？')){
+                $.ajax({
+                    url:'login',
+                    data:{type:'exit'},
+                    method:'post',
+                    dataJson:'json',
+                    success:function (res) {
+                        if(res.code>0){
+                            location.replace('login?type=toLogin');
+                        }
+                    }
+                });
+           }
+       });
+        $('.modal').on('hidden.bs.modal', function () {
+            $(this).removeData('bs.modal');
+            $('.modal .modal-content').empty();
+        });
     });
     $(window).resize(function () {
         changeFrameHeight();

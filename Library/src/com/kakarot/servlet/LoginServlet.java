@@ -50,5 +50,10 @@ public class LoginServlet extends HttpServlet {
         if("toIndex".equals(type)){
             request.getRequestDispatcher("/WEB-INF/pages/index/index.jsp").forward(request,response);
         }
+        if("exit".equals(type)){
+            session.removeAttribute("lu");
+            map.put("code",Constant.SUCCESS);
+            response.getWriter().print(JSON.toJSON(map));
+        }
     }
 }

@@ -95,7 +95,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Integer insert(UserInfo userInfo) {
-        String sql="insert into userinfo values(null,?,?,?,?,?,1,1)";
+        String sql="insert into userinfo values(null,?,?,?,?,?,2,1)";
         List list=new ArrayList();
         list.add(userInfo.getUsername());
         list.add(userInfo.getPassword());
@@ -110,6 +110,23 @@ public class UserDaoImpl implements UserDao {
         String sql="select * from userinfo where username=?";
         List list=new ArrayList();
         list.add(usename);
+        return BaseDao.baseQueryBean(sql,list,UserInfo.class);
+    }
+
+    @Override
+    public UserInfo checkPwd(String pwd, Integer id) {
+        String sql="select * from userinfo where password=? and id=?";
+        List list=new ArrayList();
+        list.add(pwd);
+        list.add(id);
+        return BaseDao.baseQueryBean(sql,list,UserInfo.class);
+    }
+
+    @Override
+    public UserInfo getInfoById(Integer id) {
+        String sql="select * from userinfo where id=?";
+        List list=new ArrayList();
+        list.add(id);
         return BaseDao.baseQueryBean(sql,list,UserInfo.class);
     }
 }

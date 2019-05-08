@@ -77,7 +77,7 @@
             pageNumber: 1,                  //默认加载第一页
             pagination: true,               //是否显示分页
             pageSize: 5,                    //每页显示条数
-            pageList: [10, 20, 30, 50],     //可供选择的每页行数
+            pageList:[5,10,20,30,50],     //可供选择的每页行数
             showRefresh: true,              //是否显示刷新按钮
             clickToSelect: true,            //是否启用点击选中行
             // height: 500,                 //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
@@ -144,7 +144,11 @@
     }
 
     function optFun(value, row) {
-        return '<a class="btn btn-primary" href="user?type=toEdit&id='+row.id+'" data-toggle="modal" data-target="#modal">修改</a> <a class="btn btn-primary" onclick="delInfo('+row.id+');" type="button" >删除</a>';
+        var funBtn='<a class="btn btn-primary" href="user?type=toEdit&id='+row.id+'" data-toggle="modal" data-target="#modal">修改</a>';
+        if(row.powerid!=1){
+            funBtn+=' <a class="btn btn-primary" onclick="delInfo(\'+row.id+\');" type="button" >删除</a>';
+        }
+        return funBtn;
     }
     function updateStatus(id,status) {
         if(confirm('确定更改状态吗？')){

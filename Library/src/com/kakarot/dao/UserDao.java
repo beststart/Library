@@ -14,4 +14,6 @@ public interface UserDao {
     Integer updatePwd(String password,Integer id);
     Integer insert(UserInfo userInfo);
     UserInfo checkUserName(String usename);
+    UserInfo checkPwd(String pwd,Integer id);
+    UserInfo getInfoById(Integer id);
 }

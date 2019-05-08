@@ -57,11 +57,51 @@ public class UserServlet extends HttpServlet {
         if("toEdit".equals(type)){
             Integer id=Integer.parseInt(StringUtils.isNullOrEmpty(request.getParameter("id"))?"0":request.getParameter("id"));
             if(id!=0){
-                request.setAttribute("msg","修改");
-            }else{
-                request.setAttribute("msg","添加");
+                UserInfo userInfo=userService.getInfoById(id);
+                request.setAttribute("user",userInfo);
             }
             request.getRequestDispatcher("/WEB-INF/pages/user/user-edit.jsp").forward(request,response);
+        }
+        if("checkUserName".equals(type)){
+            response.getWriter().print(userService.checkUserName(request.getParameter("username")));
+        }
+        if("doEdit".equals(type)){
+            Integer id=Integer.parseInt(StringUtils.isNullOrEmpty(request.getParameter("id"))?"0":request.getParameter("id"));
+            String username=request.getParameter("username");
+            String password=request.getParameter("password");
+            String realname=request.getParameter("realname");
+            String phone=request.getParameter("phone");
+            Integer age=null;
+            String sage=request.getParameter("age");
+            if(!StringUtils.isNullOrEmpty(sage)){
+                age=Integer.parseInt(sage);
+            }
+            UserInfo userInfo=new UserInfo();
+            userInfo.setId(id);
+            userInfo.setUsername(username);
+            userInfo.setPassword(password);
+            userInfo.setRealname(realname);
+            userInfo.setAge(age);
+            userInfo.setPhone(phone);
+            response.getWriter().print(userService.update(userInfo));
+        }
+        if("toPwd".equals(type)){
+            Integer id=Integer.parseInt(StringUtils.isNullOrEmpty(request.getParameter("id"))?"0":request.getParameter("id"));
+            if(id!=0){
+                UserInfo userInfo=userService.getInfoById(id);
+                request.setAttribute("user",userInfo);
+            }
+            request.getRequestDispatcher("/WEB-INF/pages/user/user-pwd.jsp").forward(request,response);
+        }
+        if("checkPwd".equals(type)){
+            Integer id=Integer.parseInt(StringUtils.isNullOrEmpty(request.getParameter("id"))?"0":request.getParameter("id"));
+            String password=request.getParameter("password");
+            response.getWriter().print(userService.checkPwd(id,password));
+        }
+        if("changePwd".equals(type)){
+            Integer id=Integer.parseInt(StringUtils.isNullOrEmpty(request.getParameter("id"))?"0":request.getParameter("id"));
+            String password=request.getParameter("password");
+            response.getWriter().print(userService.updatePwd(id,password));
         }
     }
 }

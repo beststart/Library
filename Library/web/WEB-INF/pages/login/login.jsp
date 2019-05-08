@@ -29,7 +29,7 @@
                     <div class="form-group">
                         <i class="glyphicon glyphicon-lock icon"></i>
                         <input class="form-control required" type="password" placeholder="请输入密码" id="password"
-                               name="password" maxlength="8"/>
+                               name="password" maxlength="16"/>
                     </div>
                     <div class="form-group">
                         <label class="checkbox pull-left">
