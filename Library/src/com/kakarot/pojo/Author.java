@@ -5,7 +5,6 @@ public class Author {
     private String name;
     private Integer status;
     private String remake;
-    private String img;
 
     public Integer getId() {
         return id;
@@ -39,11 +38,4 @@ public class Author {
         this.remake = remake;
     }
 
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
-    }
 }

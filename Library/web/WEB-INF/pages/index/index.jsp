@@ -25,7 +25,7 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="user?type=toEdit&id=${lu.id}" data-toggle="modal" data-target="#userInfo">${lu.realname}</a></li>
-                <li><a href="user?type=toPwd&id=${lu.id}" data-toggle="modal" data-target="#userInfo">修改密码</a></li>
+                <li><a href="user?type=toPwd" data-toggle="modal" data-target="#userInfo">修改密码</a></li>
                 <li id="exit"><a href="javascript:;">退出</a></li>
             </ul>
         </div>
@@ -37,7 +37,6 @@
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
                 <li class="active"><a href="user?type=toList" target="view">用户管理</a></li>
-                <li><a href="power?type=toList" target="view">权限管理</a></li>
                 <li><a href="book?type=toList" target="view">图书管理</a></li>
                 <li><a href="author?type=toList" target="view">作者管理</a></li>
                 <li><a href="press?type=toList" target="view">出版社管理</a></li>
@@ -68,17 +67,7 @@
        });
        $('#exit').click(function () {
            if(confirm('确定退出本系统吗？')){
-                $.ajax({
-                    url:'login',
-                    data:{type:'exit'},
-                    method:'post',
-                    dataJson:'json',
-                    success:function (res) {
-                        if(res.code>0){
-                            location.replace('login?type=toLogin');
-                        }
-                    }
-                });
+               location.replace('login?type=toLogin');
            }
        });
         $('.modal').on('hidden.bs.modal', function () {

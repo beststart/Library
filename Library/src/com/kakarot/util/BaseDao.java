@@ -115,7 +115,7 @@ public class BaseDao {
         try{
             rs=pstm.executeQuery();
             if(rs.next()){
-                return rs.getInt("count");
+                return rs.getInt(1);
             }
         }catch (Exception e){
             e.printStackTrace();

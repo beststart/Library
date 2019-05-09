@@ -86,11 +86,6 @@ public class UserServlet extends HttpServlet {
             response.getWriter().print(userService.update(userInfo));
         }
         if("toPwd".equals(type)){
-            Integer id=Integer.parseInt(StringUtils.isNullOrEmpty(request.getParameter("id"))?"0":request.getParameter("id"));
-            if(id!=0){
-                UserInfo userInfo=userService.getInfoById(id);
-                request.setAttribute("user",userInfo);
-            }
             request.getRequestDispatcher("/WEB-INF/pages/user/user-pwd.jsp").forward(request,response);
         }
         if("checkPwd".equals(type)){

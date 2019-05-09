@@ -32,6 +32,7 @@ public class LoginServlet extends HttpServlet {
         String username=request.getParameter("username");
         String password=request.getParameter("password");
         if("toLogin".equals(type)){
+            session.removeAttribute("lu");
             request.getRequestDispatcher("/WEB-INF/pages/login/login.jsp").forward(request,response);
         }
         if("doLogin".equals(type)){
@@ -49,11 +50,6 @@ public class LoginServlet extends HttpServlet {
         }
         if("toIndex".equals(type)){
             request.getRequestDispatcher("/WEB-INF/pages/index/index.jsp").forward(request,response);
-        }
-        if("exit".equals(type)){
-            session.removeAttribute("lu");
-            map.put("code",Constant.SUCCESS);
-            response.getWriter().print(JSON.toJSON(map));
         }
     }
 }

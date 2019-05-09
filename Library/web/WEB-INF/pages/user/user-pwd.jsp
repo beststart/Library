@@ -9,12 +9,12 @@
 </div>
 <div class="modal-body">
     <form class="form-horizontal" id="infoForm">
-        <input type="hidden" name="id" id="id" value="${user.id}">
+        <input type="hidden" name="id" id="id" value="${lu.id}">
         <div class="form-group">
             <label for="username" class="col-sm-2 control-label"><span class="text-danger">*</span>用户名</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" name="username" disabled id="username" placeholder="请输入用户名"
-                       value="${user.username}">
+                       value="${lu.username}">
             </div>
         </div>
         <div class="form-group">
