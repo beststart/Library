@@ -27,5 +27,8 @@ public class BookServlet extends HttpServlet {
             int limit=Integer.parseInt(request.getParameter("limit"));
             out.print(bookService.getPage(offset,limit,new Book()));
         }
+        if("toEdit".equals(type)){
+            request.getRequestDispatcher("/WEB-INF/pages/book/book-edit.jsp").forward(request,response);
+        }
     }
 }
