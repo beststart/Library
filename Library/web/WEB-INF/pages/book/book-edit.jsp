@@ -27,7 +27,7 @@
             <div class="col-sm-10">
                 <select name="authorid" id="authorid" class="form-control">
                     <c:forEach var="a" items="${aList}">
-                        <option value="${a.id}">${a.name}</option>
+                    <option value="${a.id}" <c:if test="${a.id==book.authorid}">selected</c:if> >${a.name}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -37,7 +37,7 @@
             <div class="col-sm-10">
                 <select name="pressid" id="pressid" class="form-control">
                     <c:forEach var="p" items="${pList}">
-                        <option value="${p.id}">${p.name}</option>
+                        <option value="${p.id}" <c:if test="${p.id==book.pressid}">selected</c:if> >${p.name}</option>
                     </c:forEach>
                 </select>
             </div>
