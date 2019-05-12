@@ -73,4 +73,9 @@ public class PressServiceImpl implements PressService {
         }
         return JSON.toJSON(map);
     }
+
+    @Override
+    public List<Press> getAll() {
+        return pressDao.getAll();
+    }
 }

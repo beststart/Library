@@ -2,13 +2,11 @@ package com.kakarot.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.kakarot.dao.AuthorDao;
-import com.kakarot.dao.UserDao;
 import com.kakarot.dao.impl.AuthorDaoImpl;
 import com.kakarot.pojo.Author;
 import com.kakarot.service.AuthorService;
 import com.kakarot.util.Constant;
 
-import javax.jws.Oneway;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -74,5 +72,10 @@ public class AuthorServiceImpl implements AuthorService {
             map.put("msg",Constant.ERROR_UPDATE_MSG);
         }
         return JSON.toJSON(map);
+    }
+
+    @Override
+    public List<Author> getAll() {
+        return authorDao.getAll();
     }
 }

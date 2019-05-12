@@ -24,7 +24,7 @@
         <div class="panel-body">
             <form id="formSearch" class="form-inline">
                 <div class="form-group">
-                    <label class="control-label" for="sname">作者名</label>
+                    <label class="control-label" for="sname">书名</label>
                     <input type="text" class="form-control" id="sname">
                 </div>
                 <div class="form-group">
@@ -33,6 +33,24 @@
                         <option value="">[请选择]</option>
                         <option value="1">可用</option>
                         <option value="0">禁用</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="said">作者名</label>
+                    <select id="said" class="form-control">
+                        <option value="">[请选择]</option>
+                        <c:forEach items="${aList}" var="a">
+                            <option value="${a.id}">${a.name}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="spid">出版社</label>
+                    <select id="spid" class="form-control">
+                        <option value="">[请选择]</option>
+                        <c:forEach items="${pList}" var="p">
+                            <option value="${p.id}">${p.name}</option>
+                        </c:forEach>
                     </select>
                 </div>
                 <div class="form-group" style="text-align:left;">
@@ -93,7 +111,8 @@
                 title:'价格(￥)'
             },{
                 field:'img',
-                title:'图片'
+                title:'图片',
+                formatter:imgFun
             },{
                 field:'aname',
                 title:'作者名'
@@ -124,10 +143,14 @@
         $('#btn_query').click(function () {
             var name = $('#sname').val();
             var status = $('#sstatus').val();
+            var authorid=$('#said').val();
+            var pressid=$('#spid').val();
             $('#infoTable').bootstrapTable('refresh', {
                 query: {
                     name: name,
-                    status: status
+                    status: status,
+                    authorid:authorid,
+                    pressid:pressid
                 }
             });
         });
@@ -149,6 +172,10 @@
 
     function optFun(value, row) {
         return '<a class="btn btn-primary" href="book?type=toEdit&id=' + row.id + '" data-toggle="modal" data-target="#modal">修改</a> <a class="btn btn-primary" onclick="delInfo(' + row.id + ');" type="button" >删除</a>';
+    }
+
+    function imgFun(value) {
+        return '<img src="static/upload/'+value+'" style="height: 100px;width: 100px;">';
     }
 
     function remakeFun(value) {

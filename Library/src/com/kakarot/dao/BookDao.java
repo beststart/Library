@@ -14,6 +14,6 @@ public interface BookDao {
     Integer delete(Integer id);
     Integer insert(Book book);
     Book getInfoById(Integer id);
-    Book getInfoByAid(int aid);
-    Book getInfoByPid(int pid);
+    List<Book> getInfoByAid(int aid);
+    List<Book> getInfoByPid(int pid);
 }
