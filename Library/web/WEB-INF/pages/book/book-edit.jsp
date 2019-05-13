@@ -79,7 +79,7 @@
 <script src="static/plugins/webuploader/webuploader.js"></script>
 <script>
     $(function () {
-        $('#filePicker input[type="file"]').parent().css({'height':'40px','width':'86px'});
+        $('.webuploader-pick').next().find('label').css({'height':'40px','width':'86px'});
        $('#infoForm').bootstrapValidator({
            excluded:[":disabled"],//设置只有disbled不验证，默认hidden也是不验证的
            /*验证状态图标设置*/

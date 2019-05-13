@@ -123,4 +123,10 @@ public class BookDaoImpl implements BookDao {
         list.add(pid);
         return BaseDao.baseQuery(sql,list,Book.class);
     }
+
+    @Override
+    public List<Book> getInfoByHot() {
+        String sql="select b.*,a.name aname,p.name pname from book b,author a,press p where b.authorid=a.id and b.pressid=p.id and b.status=1 order by count desc limit 9";
+        return BaseDao.baseQuery(sql,Book.class);
+    }
 }

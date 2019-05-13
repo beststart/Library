@@ -16,4 +16,5 @@ public interface BookDao {
     Book getInfoById(Integer id);
     List<Book> getInfoByAid(int aid);
     List<Book> getInfoByPid(int pid);
+    List<Book> getInfoByHot();
 }
