@@ -27,7 +27,7 @@
             margin: 0 auto;
         }
         .thumbnail{
-            height: 390px;
+            height: 420px;
         }
         .thumbnail .intro{
             height: 60px;
@@ -75,6 +75,7 @@
                     <div class="caption">
                         <h3>${hot.name}</h3>
                         <p>作者：${hot.aname}</p>
+                        <p>出版社：${hot.pname}</p>
                         <p class="intro" title="${hot.intro}">
                             <c:choose>
                                 <c:when test="${fn:length(hot.intro)>30}">
