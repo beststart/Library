@@ -129,4 +129,12 @@ public class BookDaoImpl implements BookDao {
         String sql="select b.*,a.name aname,p.name pname from book b,author a,press p where b.authorid=a.id and b.pressid=p.id and b.status=1 order by count desc limit 9";
         return BaseDao.baseQuery(sql,Book.class);
     }
+
+    @Override
+    public int bBook(Integer id) {
+        String sql="update book set status=0,count=count+1 where id=?";
+        List list=new ArrayList();
+        list.add(id);
+        return BaseDao.baseUpdate(sql,list);
+    }
 }

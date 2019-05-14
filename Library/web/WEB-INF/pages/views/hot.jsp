@@ -8,6 +8,7 @@
     <title>逆时光图书馆</title>
     <base href="${basePath}">
     <link rel="stylesheet" href="static/plugins/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="static/plugins/bootstrap-validator/css/bootstrapValidator.css">
     <link rel="icon" href="static/imgs/logoko.png">
     <%--https://blog.csdn.net/superperson976/article/details/83354933--%>
     <style>
@@ -61,8 +62,14 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#" data-toggle="modal" data-target="#modal">登录</a></li>
-                        <li><a href="${basePath}login?type=toLogin" target="_blank">后台</a></li>
+                        <li id="loginMenu">
+                            <c:if test="${not empty lu}">
+                                <a href="${basePath}login?type=toIndex" target="_blank">${lu.realname}</a>
+                            </c:if>
+                            <c:if test="${empty lu}">
+                                <a href="#" data-toggle="modal" data-target="#modal">登录</a>
+                            </c:if>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -85,8 +92,9 @@
                             </c:choose>
                         </p>
                         <p>
-                            <a href="#" class="btn btn-default" role="button">详情</a>
-                            <a href="#" class="btn btn-default" role="button">借阅</a>
+                            <a href="index?type=detail&id=${hot.id}" class="btn btn-default" role="button" data-toggle="modal" data-target="#modal">详情</a>
+                            <a href="javascript:;" onclick="borBook(${hot.id});" class="btn btn-default" role="button">借阅</a>
+                            <span>被借${hot.count}次</span>
                         </p>
                     </div>
                 </div>
@@ -127,12 +135,98 @@
 </body>
 <script src="static/plugins/jquery/jquery-3.4.0.js"></script>
 <script src="static/plugins/bootstrap/js/bootstrap.js"></script>
+<script src="static/plugins/bootstrap-validator/js/bootstrapValidator.js"></script>
+<script src="static/plugins/bootstrap-validator/js/language/zh_CN.js"></script>
 <script>
+    var userid='${lu.id}';
+    var powerid='${lu.powerid}';
     $(function () {
         $('.modal').on('hidden.bs.modal', function () {
             $(this).removeData('bs.modal');
-            $('.modal .modal-content').empty();
+            // $('.modal .modal-content').empty();
+        });
+        $('#infoForm').bootstrapValidator({
+            /*验证状态图标设置*/
+            feedbackIcons:{
+                valid:'glyphicon glyphicon-ok',             //验证成功状态
+                invalid:'glyphicon glyphicon-remove',       //验证失败状态
+                validating:'glyphicon glyphicon-refresh'    //正在验证状态
+            },
+            /*配置要验证的属性*/
+            fields: {
+                username: {
+                    validators: {
+                        notEmpty: {
+                            message: '用户名不能为空'
+                        }
+                    }
+                },
+                password: {
+                    validators: {
+                        notEmpty: {
+                            message: '密码不能为空'
+                        }
+                    }
+                }
+            }
+        });
+        $('#loginBtn').click(function () {
+            var bootstrapValidator = $("#infoForm").data('bootstrapValidator');
+            bootstrapValidator.validate();
+            if(bootstrapValidator.isValid()){
+                $.ajax({
+                    url:'login?type=doLogin',
+                    data:$("#infoForm").serialize(),
+                    method:'post',
+                    dataType:'json',
+                    success:function (res) {
+                        if(res.code>0){
+                            $('#loginBtn').parents('.modal').modal('hide');
+                            $('#loginMenu').empty().append('<a href="login?type=toIndex" target="_blank">'+res.user.realname+'</a>');
+                            userid=res.user.id;
+                            powerid=res.user.powerid;
+                        }else{
+                            alert(res.msg);
+                        }
+                    },
+                    error:function (e) {
+                        alert('与服务器连接失败，请稍后再试...');
+                        console.log(e);
+                    }
+                });
+            }
         });
     });
+    function borBook(id) {
+        if(!userid){
+            alert('请先登录！');
+            return;
+        }
+        if(powerid==1){
+            alert('管理员不能借阅图书！');
+            return;
+        }
+        if(confirm('确定借阅本书吗？')){
+            $.ajax({
+                url:'index',
+                data:{
+                    type:'borrow',
+                    bid:id
+                },
+                method:'post',
+                dataType:'json',
+                success:function (res) {
+                    alert(res.msg);
+                    if(res.code>0){
+                        location.reload();
+                    }
+                },
+                error:function (e) {
+                    alert('与服务器连接失败，请稍后再试...');
+                    console.log(e);
+                }
+            });
+        }
+    }
 </script>
 </html>

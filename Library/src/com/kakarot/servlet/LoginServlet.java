@@ -41,6 +41,7 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("lu",userInfo);
                 map.put("code",Constant.SUCCESS);
                 map.put("msg","登录成功！");
+                map.put("user",userInfo);
                 out.print(JSON.toJSON(map));
             }else{
                 map.put("code",Constant.ERROR);
@@ -49,7 +50,12 @@ public class LoginServlet extends HttpServlet {
             }
         }
         if("toIndex".equals(type)){
-            request.getRequestDispatcher("/WEB-INF/pages/index/index.jsp").forward(request,response);
+            Object obj=session.getAttribute("lu");
+            if(obj==null){
+                request.getRequestDispatcher("/WEB-INF/pages/login/login.jsp").forward(request,response);
+            }else{
+                request.getRequestDispatcher("/WEB-INF/pages/index/index.jsp").forward(request,response);
+            }
         }
     }
 }
