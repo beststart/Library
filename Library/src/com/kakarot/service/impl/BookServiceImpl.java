@@ -72,4 +72,9 @@ public class BookServiceImpl implements BookService {
         }
         return JSON.toJSON(map);
     }
+
+    @Override
+    public List<Book> getAll() {
+        return bookDao.getAll();
+    }
 }

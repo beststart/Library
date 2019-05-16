@@ -137,4 +137,12 @@ public class BookDaoImpl implements BookDao {
         list.add(id);
         return BaseDao.baseUpdate(sql,list);
     }
+
+    @Override
+    public int rBook(Integer id) {
+        String sql="update book set status=1 where id = ?";
+        List list=new ArrayList();
+        list.add(id);
+        return BaseDao.baseUpdate(sql,list);
+    }
 }

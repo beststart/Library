@@ -55,7 +55,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">图书分类 <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li class="active"><a href="#">出版社</a></li>
+                                <li><a href="index?type=sort">出版社</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a href="#">作者</a></li>
                             </ul>

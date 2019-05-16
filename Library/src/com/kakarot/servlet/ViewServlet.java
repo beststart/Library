@@ -2,7 +2,11 @@ package com.kakarot.servlet;
 
 import com.kakarot.pojo.Record;
 import com.kakarot.pojo.UserInfo;
+import com.kakarot.service.BookService;
+import com.kakarot.service.PressService;
 import com.kakarot.service.ViewService;
+import com.kakarot.service.impl.BookServiceImpl;
+import com.kakarot.service.impl.PressServiceImpl;
 import com.kakarot.service.impl.ViewServiceImpl;
 import com.mysql.jdbc.StringUtils;
 
@@ -18,6 +22,8 @@ public class ViewServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ViewService viewService=new ViewServiceImpl();
+        PressService pressService=new PressServiceImpl();
+        BookService bookService=new BookServiceImpl();
         String type=request.getParameter("type");
         String bid=request.getParameter("bid");
         Integer bookid=null;
@@ -38,6 +44,11 @@ public class ViewServlet extends HttpServlet {
         }
         if("borrow".equals(type)){
             response.getWriter().print(viewService.bBook(record));
+        }
+        if("sort".equals(type)){
+            request.setAttribute("pl",pressService.getAll());
+            request.setAttribute("bl",bookService.getAll());
+            request.getRequestDispatcher("/WEB-INF/pages/views/sort.jsp").forward(request,response);
         }
     }
 }

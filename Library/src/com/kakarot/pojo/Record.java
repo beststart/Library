@@ -10,6 +10,12 @@ public class Record {
     private String uname;
     private String bname;
 
+    private String bstime;
+    private String betime;
+
+    private String rstime;
+    private String retime;
+
     public Integer getId() {
         return id;
     }
@@ -64,5 +70,37 @@ public class Record {
 
     public void setBname(String bname) {
         this.bname = bname;
+    }
+
+    public String getBstime() {
+        return bstime;
+    }
+
+    public void setBstime(String bstime) {
+        this.bstime = bstime;
+    }
+
+    public String getBetime() {
+        return betime;
+    }
+
+    public void setBetime(String betime) {
+        this.betime = betime;
+    }
+
+    public String getRstime() {
+        return rstime;
+    }
+
+    public void setRstime(String rstime) {
+        this.rstime = rstime;
+    }
+
+    public String getRetime() {
+        return retime;
+    }
+
+    public void setRetime(String retime) {
+        this.retime = retime;
     }
 }
