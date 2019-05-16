@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -17,6 +19,43 @@
 </head>
 <body>
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="panel panel-default" style="margin-top: 5px">
+        <div class="panel-heading">查询条件</div>
+        <div class="panel-body">
+            <form id="formSearch" class="form-inline">
+                <div class="form-group">
+                    <label class="control-label" for="uname">借书人</label>
+                    <select id="uname" class="form-control">
+                        <option value="">[请选择]</option>
+                        <c:forEach var="u" items="${ul}">
+                            <option value="${u.id}">${u.realname}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="bname">书名</label>
+                    <select id="bname" class="form-control">
+                        <option value="">[请选择]</option>
+                        <c:forEach var="b" items="${bl}">
+                            <option value="${b.id}">${b.name}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="btime">借书时间</label>
+                    <input type="text" class="form-control" id="btime" placeholder="请选择借书时间范围">
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="rtime">还书时间</label>
+                    <input type="text" class="form-control" id="rtime" placeholder="请选择还书时间范围">
+                </div>
+                <div class="form-group" style="text-align:left;">
+                    <button type="button" style="margin-left:10px" id="btn_query" class="btn btn-primary">查询</button>
+                    <button type="button" style="margin-left:10px" id="btn_clear" class="btn btn-primary">清空</button>
+                </div>
+            </form>
+        </div>
+    </div>
             <div class="table-responsive">
                 <table id="infoTable">
                 </table>
@@ -27,8 +66,17 @@
 <script src="static/plugins/bootstrap/js/bootstrap.js"></script>
 <script src="static/plugins/bootstrap-table/bootstrap-table.js"></script>
 <script src="static/plugins/bootstrap-table/bootstrap-table-zh-CN.js"></script>
+<script src="static/plugins/laydate/laydate.js"></script>
 <script>
     $(function () {
+        laydate.render({
+            elem: '#btime'
+            ,range: true
+        });
+        laydate.render({
+            elem: '#rtime'
+            ,range: true
+        });
         $('#infoTable').bootstrapTable({
             url: 'record?type=getPage',
             method: 'get',
@@ -39,12 +87,11 @@
             pagination: true,               //是否显示分页
             pageSize: 5,                    //每页显示条数
             pageList: [5, 10, 20, 30, 50],     //可供选择的每页行数
-            showRefresh: true,              //是否显示刷新按钮
             clickToSelect: true,            //是否启用点击选中行
             // height: 500,                 //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
-            uniqueId: "id",                 //每一行的唯一标识，一般为主键列
-            showToggle: true,               //是否显示详细视图和列表视图的切换按钮
-            cardView: false,                //是否显示详细视图
+            // queryParams:function(param){
+            //
+            // },
             columns: [{
                 checkbox: true
             }, {
@@ -71,6 +118,20 @@
                 title: '操作',
                 formatter: optFun
             }]
+        });
+        $('#btn_query').click(function () {
+            $('#infoTable').bootstrapTable('refresh', {
+                query: {
+                    offset:0,
+                    userid: $('#uname').val(),
+                    bookid: $('#bname').val(),
+                    borrowTime:$('#btime').val(),
+                    returnTime:$('#rtime').val()
+                }
+            });
+        });
+        $('#btn_clear').click(function () {
+            $('input,select').val('');
         });
     });
     function statusFun(value, row) {

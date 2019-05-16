@@ -2,8 +2,12 @@ package com.kakarot.servlet;
 
 import com.kakarot.pojo.Record;
 import com.kakarot.pojo.UserInfo;
+import com.kakarot.service.BookService;
 import com.kakarot.service.RecordService;
+import com.kakarot.service.UserService;
+import com.kakarot.service.impl.BookServiceImpl;
 import com.kakarot.service.impl.RecordServiceImpl;
+import com.kakarot.service.impl.UserServiceImpl;
 import com.mysql.jdbc.StringUtils;
 
 import javax.servlet.ServletException;
@@ -19,6 +23,8 @@ public class RecordServlet extends HttpServlet {
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String type=request.getParameter("type");
         RecordService recordService=new RecordServiceImpl();
+        BookService bookService=new BookServiceImpl();
+        UserService userService=new UserServiceImpl();
         Record record=new Record();
         Integer userid=null;
         String uid=request.getParameter("userid");
@@ -50,6 +56,8 @@ public class RecordServlet extends HttpServlet {
             }
         }
         if("toList".equals(type)){
+            request.setAttribute("ul",userService.getAll());
+            request.setAttribute("bl",bookService.getAllBook());
             request.getRequestDispatcher("/WEB-INF/pages/record/record-list.jsp").forward(request,response);
         }
         if("getPage".equals(type)){

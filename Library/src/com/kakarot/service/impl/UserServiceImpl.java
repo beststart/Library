@@ -120,4 +120,9 @@ public class UserServiceImpl implements UserService {
     public UserInfo getInfoById(Integer id) {
         return userDao.getInfoById(id);
     }
+
+    @Override
+    public List<UserInfo> getAll() {
+        return userDao.getAll();
+    }
 }

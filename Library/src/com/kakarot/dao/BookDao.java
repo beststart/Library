@@ -19,4 +19,5 @@ public interface BookDao {
     List<Book> getInfoByHot();
     int bBook(Integer id);
     int rBook(Integer id);
+    List<Book> getAllBook();
 }

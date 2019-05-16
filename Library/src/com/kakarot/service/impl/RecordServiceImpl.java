@@ -9,6 +9,7 @@ import com.kakarot.pojo.Record;
 import com.kakarot.service.RecordService;
 import com.kakarot.util.Constant;
 import com.kakarot.util.MyUtil;
+import com.mysql.jdbc.StringUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +20,19 @@ public class RecordServiceImpl implements RecordService {
     private BookDao bookDao=new BookDaoImpl();
     @Override
     public Object getPage(int offset, int pageSize, Record record) {
+        String bTime=record.getBorrowTime();
+        String rTime=record.getReturnTime();
+        if(!StringUtils.isNullOrEmpty(bTime)){
+            String[] bt=bTime.split(" - ");
+            record.setBstime(bt[0]);
+            record.setBetime(bt[1]);
+        }
+        if(!StringUtils.isNullOrEmpty(rTime)){
+            String[] rt=rTime.split(" - ");
+            record.setRstime(rt[0]);
+            record.setRetime(rt[1]);
+        }
+
         List<Record> list=recordDao.getPage(offset,pageSize,record);
         int total=recordDao.getCount(record);
         Map<String,Object> map=new HashMap<>();

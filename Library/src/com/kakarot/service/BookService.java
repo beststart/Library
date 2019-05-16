@@ -11,4 +11,5 @@ public interface BookService {
     Object delete(int id);
     Object updateStatus(int id,int status);
     List<Book> getAll();
+    List<Book> getAllBook();
 }

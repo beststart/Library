@@ -16,4 +16,5 @@ public interface UserDao {
     UserInfo checkUserName(String usename);
     UserInfo checkPwd(String pwd,Integer id);
     UserInfo getInfoById(Integer id);
+    List<UserInfo> getAll();
 }

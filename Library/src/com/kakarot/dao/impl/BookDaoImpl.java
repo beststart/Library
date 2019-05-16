@@ -4,6 +4,7 @@ import com.kakarot.dao.BookDao;
 import com.kakarot.pojo.Book;
 import com.kakarot.util.BaseDao;
 import com.mysql.jdbc.StringUtils;
+import com.sun.org.apache.regexp.internal.RE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -144,5 +145,11 @@ public class BookDaoImpl implements BookDao {
         List list=new ArrayList();
         list.add(id);
         return BaseDao.baseUpdate(sql,list);
+    }
+
+    @Override
+    public List<Book> getAllBook() {
+        String sql="select * from book";
+        return BaseDao.baseQuery(sql,Book.class);
     }
 }

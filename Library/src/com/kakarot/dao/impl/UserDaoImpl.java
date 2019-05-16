@@ -129,4 +129,10 @@ public class UserDaoImpl implements UserDao {
         list.add(id);
         return BaseDao.baseQueryBean(sql,list,UserInfo.class);
     }
+
+    @Override
+    public List<UserInfo> getAll() {
+        String sql="select * from userinfo where powerid!=1";
+        return BaseDao.baseQuery(sql,UserInfo.class);
+    }
 }
