@@ -23,7 +23,8 @@
         <div class="panel-heading">查询条件</div>
         <div class="panel-body">
             <form id="formSearch" class="form-inline">
-                <div class="form-group">
+                <c:if test="${lu.powerid==1}">
+                    <div class="form-group">
                     <label class="control-label" for="uname">借书人</label>
                     <select id="uname" class="form-control">
                         <option value="">[请选择]</option>
@@ -32,6 +33,7 @@
                         </c:forEach>
                     </select>
                 </div>
+                </c:if>
                 <div class="form-group">
                     <label class="control-label" for="bname">书名</label>
                     <select id="bname" class="form-control">
