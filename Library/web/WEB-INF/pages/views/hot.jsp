@@ -196,6 +196,9 @@
                 });
             }
         });
+        $('#infoForm').submit(function (e) {
+            e.preventDefault();
+        });
     });
     function borBook(id) {
         if(!userid){

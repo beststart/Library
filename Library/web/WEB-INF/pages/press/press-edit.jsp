@@ -49,6 +49,9 @@
 <script src="static/plugins/bootstrap-validator/js/language/zh_CN.js"></script>
 <script>
     $(function () {
+        $('#infoForm').submit(function (e) {
+            e.preventDefault();
+        });
        $('#infoForm').bootstrapValidator({
            /*验证状态图标设置*/
            feedbackIcons:{
